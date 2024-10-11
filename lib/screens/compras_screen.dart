@@ -30,7 +30,7 @@ class _ComprasScreenState extends State<ComprasScreen> {
 
   Future<void> _fetchCompras() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:3005/api/compras'));
+      final response = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/compras'));
 
       if (response.statusCode == 200) {
         setState(() {
@@ -47,17 +47,17 @@ class _ComprasScreenState extends State<ComprasScreen> {
 
   Future<void> _fetchCompraDetalles(int idCompra) async {
     try {
-      final responseCompra = await http.get(Uri.parse('http://localhost:3005/api/compras/$idCompra'));
+      final responseCompra = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/compras/$idCompra'));
 
       if (responseCompra.statusCode == 200) {
         final compra = json.decode(responseCompra.body);
 
         // Obtener detalles del proveedor
-        final responseProveedor = await http.get(Uri.parse('http://localhost:3005/api/proveedores/${compra['id_proveedor']}'));
+        final responseProveedor = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/proveedores/${compra['id_proveedor']}'));
         final proveedor = responseProveedor.statusCode == 200 ? json.decode(responseProveedor.body) : {};
 
         // Obtener detalles de los insumos
-        final responseInsumos = await http.get(Uri.parse('http://localhost:3005/api/insumos'));
+        final responseInsumos = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/insumos'));
         final insumos = responseInsumos.statusCode == 200 ? json.decode(responseInsumos.body) : [];
 
         // Mostrar detalles en un diálogo
@@ -121,7 +121,7 @@ class _ComprasScreenState extends State<ComprasScreen> {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-                Text('Motivo Anulación: ${compra['anulacion'] ?? 'N/A'}'),
+                Text('Motivo Anulación: ${compra['motivo_anulacion'] ?? 'N/A'}'),
                 Text('Total: \$${(compra['total'] ?? 0.0).toString()}'),
               ],
             ),

@@ -36,7 +36,7 @@ class _VentasScreenState extends State<VentasScreen> {
 
   Future<void> _fetchVentas() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:3005/api/ventas'));
+      final response = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/ventas'));
 
       if (response.statusCode == 200) {
         setState(() {
@@ -53,13 +53,13 @@ class _VentasScreenState extends State<VentasScreen> {
 
   Future<void> _fetchVentaDetalles(int idVenta) async {
     try {
-      final responseVenta = await http.get(Uri.parse('http://localhost:3005/api/ventas/$idVenta'));
+      final responseVenta = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/ventas/$idVenta'));
 
       if (responseVenta.statusCode == 200) {
         dynamic venta = json.decode(responseVenta.body);
 
         if (venta['cliente_id'] != null) {
-          final responseCliente = await http.get(Uri.parse('http://localhost:3005/api/clientes/${venta['cliente_id']}'));
+          final responseCliente = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/clientes/${venta['cliente_id']}'));
           if (responseCliente.statusCode == 200) {
             venta['cliente'] = json.decode(responseCliente.body);
           }
@@ -68,7 +68,7 @@ class _VentasScreenState extends State<VentasScreen> {
         Map<String, dynamic> productos = {};
         if (venta['detalles'] != null) {
           for (var detalle in venta['detalles']) {
-            final responseProducto = await http.get(Uri.parse('http://localhost:3005/api/productos/${detalle['id_producto']}'));
+            final responseProducto = await http.get(Uri.parse('https://finalbackenddelicremm.onrender.com/api/productos/${detalle['id_producto']}'));
             if (responseProducto.statusCode == 200) {
               productos[detalle['id_producto'].toString()] = json.decode(responseProducto.body);
             }
@@ -129,7 +129,7 @@ class _VentasScreenState extends State<VentasScreen> {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-                Text('Motivo Anulación: ${venta['anulacion'] ?? 'N/A'}'),
+                Text('Motivo Anulación: ${venta['motivo_anulacion'] ?? 'N/A'}'),
                 Text('Total: \$${(venta['total'] ?? 0.0).toString()}'),
               ],
             ),
