@@ -1,0 +1,1 @@
+ C:\\Users\\USUARIO\\OneDrive\ -\ SENA\\Escritorio\\Frontrevi\\.dart_tool\\flutter_build\\24ec387d8b6130f50c1a8b5fe6c4c219\\native_assets.yaml: 
